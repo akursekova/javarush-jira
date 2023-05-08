@@ -2,6 +2,7 @@ package com.javarush.jira.login.internal.sociallogin.handler;
 
 import org.springframework.stereotype.Component;
 
+// todo to be deleted
 @Component("yandex")
 public class YandexOAuth2UserDataHandler implements OAuth2UserDataHandler {
     @Override

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;
 
+//todo to be deleted
 @Component("vk")
 public class VkOAuth2UserDataHandler implements OAuth2UserDataHandler {
     @Override
