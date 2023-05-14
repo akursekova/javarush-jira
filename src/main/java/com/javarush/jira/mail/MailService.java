@@ -13,8 +13,10 @@ import jakarta.mail.internet.MimeMessage;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -75,7 +77,7 @@ public class MailService {
     }
 
     private String getContent(String template, Map<String, Object> params) {
-        Context context = new Context(LOCALE_RU, params);
+        Context context = new Context(LocaleContextHolder.getLocale(), params);
         return templateEngine.process(template, context);
     }
 
