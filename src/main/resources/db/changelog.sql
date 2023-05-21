@@ -276,3 +276,10 @@ values('qa','QA', 8),
       ('dev','DEV', 8),
       ('front','Front', 8),
       ('back','Back', 8);
+
+--changeset akursekova:add_activities
+
+insert into ACTIVITY ( ID, AUTHOR_ID, TASK_ID, UPDATED, STATUS_CODE )
+values(1, 2, 4, '2023-01-10T21:34:49.690422', 'in progress'),
+      (2, 2, 4, '2023-03-31T21:34:49.690422', 'ready'),
+      (3, 2, 4, '2023-05-19T21:34:49.690422', 'done');
