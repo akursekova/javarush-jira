@@ -1,6 +1,7 @@
 DELETE FROM profile;
 DELETE FROM user_role;
 DELETE FROM user_belong;
+DELETE FROM activity;
 DELETE FROM users;
 DELETE FROM task;
 DELETE FROM sprint;
