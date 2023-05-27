@@ -20,42 +20,42 @@ public class ActivityService {
     private static final String DONE = "done";
     private static final String AND = " and ";
 
-    public long daysBetweenInProgressAndReady(Task task) {
+    public Optional<Duration> calculateDurationBetweenInProgressAndReady(Task task) {
         Optional<LocalDateTime> inProgressTimestamp = repository.findTaskDurationByTaskAndStatus(task, IN_PROGRESS);
         Optional<LocalDateTime> readyTimestamp = repository.findTaskDurationByTaskAndStatus(task, READY);
 
 
         if (inProgressTimestamp.isPresent() && readyTimestamp.isPresent()) {
-            return Duration.between(inProgressTimestamp.get(), readyTimestamp.get()).toDaysPart();
+            return Optional.of(Duration.between(inProgressTimestamp.get(), readyTimestamp.get()));
         } else {
             log.error(buildLogErrorMessage(task, inProgressTimestamp, readyTimestamp, IN_PROGRESS, READY));
-            return -1;
+            return Optional.empty();
         }
     }
 
-    public long daysBetweenReadyAndDone(Task task) {
+    public Optional<Duration> calculateDurationBetweenReadyAndDone(Task task) {
         Optional<LocalDateTime> readyTimestamp = repository.findTaskDurationByTaskAndStatus(task, READY);
         Optional<LocalDateTime> doneTimestamp = repository.findTaskDurationByTaskAndStatus(task, DONE);
 
 
         if (readyTimestamp.isPresent() && doneTimestamp.isPresent()) {
-            return Duration.between(readyTimestamp.get(), doneTimestamp.get()).toDaysPart();
+            return Optional.of(Duration.between(readyTimestamp.get(), doneTimestamp.get()));
         } else {
             log.error(buildLogErrorMessage(task, readyTimestamp, doneTimestamp, READY, DONE));
-            return -1;
+            return Optional.empty();
         }
     }
 
     private String buildLogErrorMessage(Task task, Optional<LocalDateTime> startTimestamp, Optional<LocalDateTime> endTimestamp,
                                         String startStatus, String endStatus) {
         StringBuilder logMessage = new StringBuilder("Failed to calculate duration between '").append(startStatus)
-                .append("' and '").append(endStatus).append("' timestamps for the task ").append(task)
-                .append(". There is no record that sets the task to ");
+                .append("'").append(AND).append("'").append(endStatus).append("' timestamps for the task ")
+                .append(task).append(". There is no record that sets the task to ");
 
 
-        if (!startTimestamp.isPresent() && !endTimestamp.isPresent()) {
+        if (startTimestamp.isEmpty() && endTimestamp.isEmpty()) {
             logMessage.append(startStatus).append(AND).append(endStatus);
-        } else if (!startTimestamp.isPresent()) {
+        } else if (startTimestamp.isEmpty()) {
             logMessage.append(startStatus);
         } else {
             logMessage.append(endStatus);
