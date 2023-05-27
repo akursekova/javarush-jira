@@ -21,8 +21,8 @@ public class ActivityService {
     private static final String AND = " and ";
 
     public Optional<Duration> calculateDurationBetweenInProgressAndReady(Task task) {
-        Optional<LocalDateTime> inProgressTimestamp = repository.findTaskDurationByTaskAndStatus(task, IN_PROGRESS);
-        Optional<LocalDateTime> readyTimestamp = repository.findTaskDurationByTaskAndStatus(task, READY);
+        Optional<LocalDateTime> inProgressTimestamp = repository.findTaskTimestampByTaskAndStatus(task, IN_PROGRESS);
+        Optional<LocalDateTime> readyTimestamp = repository.findTaskTimestampByTaskAndStatus(task, READY);
 
 
         if (inProgressTimestamp.isPresent() && readyTimestamp.isPresent()) {
@@ -34,8 +34,8 @@ public class ActivityService {
     }
 
     public Optional<Duration> calculateDurationBetweenReadyAndDone(Task task) {
-        Optional<LocalDateTime> readyTimestamp = repository.findTaskDurationByTaskAndStatus(task, READY);
-        Optional<LocalDateTime> doneTimestamp = repository.findTaskDurationByTaskAndStatus(task, DONE);
+        Optional<LocalDateTime> readyTimestamp = repository.findTaskTimestampByTaskAndStatus(task, READY);
+        Optional<LocalDateTime> doneTimestamp = repository.findTaskTimestampByTaskAndStatus(task, DONE);
 
 
         if (readyTimestamp.isPresent() && doneTimestamp.isPresent()) {

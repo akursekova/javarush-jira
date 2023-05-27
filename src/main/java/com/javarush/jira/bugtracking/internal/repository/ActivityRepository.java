@@ -12,5 +12,5 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface ActivityRepository extends BaseRepository<Activity> {
     @Query(value = "SELECT a.updated from Activity a WHERE a.task=:task and a.statusCode=:status")
-    Optional<LocalDateTime> findTaskDurationByTaskAndStatus(Task task, String status);
+    Optional<LocalDateTime> findTaskTimestampByTaskAndStatus(Task task, String status);
 }
