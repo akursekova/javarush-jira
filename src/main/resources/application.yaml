@@ -27,6 +27,7 @@ spring:
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+    driverClassName: ${DB_DRIVER}
 
   liquibase:
     changeLog: "classpath:db/changelog.sql"
