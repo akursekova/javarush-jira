@@ -23,7 +23,7 @@ public class DashboardUIController {
 
     @GetMapping("/") // index page
     public String getAll(Model model) {
-        List<TaskTo> tasks = taskService.getAll();
+        List<TaskTo> tasks = taskService.getAllWithNonEmptySprint();
         Map<SprintTo, List<TaskTo>> taskMap = tasks.stream()
                 .collect(Collectors.groupingBy(TaskTo::getSprint));
         model.addAttribute("taskMap", taskMap);
