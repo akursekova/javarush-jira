@@ -5,6 +5,7 @@ import com.javarush.jira.bugtracking.internal.repository.UserBelongRepository;
 import com.javarush.jira.bugtracking.to.ObjectType;
 import com.javarush.jira.bugtracking.to.TaskTagsTo;
 import com.javarush.jira.login.AuthUser;
+import com.javarush.jira.login.internal.UserRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class TaskRestController extends AbstractTaskController {
     @Autowired
     UserBelongRepository userBelongRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -35,9 +39,9 @@ public class TaskRestController extends AbstractTaskController {
 
     @PostMapping("/{taskId}/watchers")
     public ResponseEntity<UserBelong> subscribe(@PathVariable String taskId, @AuthenticationPrincipal AuthUser authUser) {
-        UserBelong userBelong = new UserBelong(Long.valueOf(taskId), ObjectType.TASK, authUser.id(), "admin"); //todo to add logic how to get user_type_code by user_id
+        String userCode = userRepository.getExisted(authUser.id()).getTypeCode();
+        UserBelong userBelong = new UserBelong(Long.valueOf(taskId), ObjectType.TASK, authUser.id(), userCode);
         UserBelong created = userBelongRepository.save(userBelong);
-
         return ResponseEntity.ok().body(created);
     }
 

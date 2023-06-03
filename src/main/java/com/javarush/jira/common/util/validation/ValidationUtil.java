@@ -2,6 +2,8 @@ package com.javarush.jira.common.util.validation;
 
 import com.javarush.jira.common.HasId;
 import com.javarush.jira.common.error.IllegalRequestDataException;
+import com.javarush.jira.ref.RefType;
+import com.javarush.jira.ref.ReferenceService;
 import lombok.experimental.UtilityClass;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.lang.NonNull;
@@ -33,5 +35,9 @@ public class ValidationUtil {
     public static Throwable getRootCause(@NonNull Throwable t) {
         Throwable rootCause = NestedExceptionUtils.getRootCause(t);
         return rootCause != null ? rootCause : t;
+    }
+
+    public static void checkUserTypeCodeExist(String userCode) {
+        ReferenceService.getRefTo(RefType.USER_TYPE, userCode);
     }
 }

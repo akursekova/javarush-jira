@@ -300,3 +300,11 @@ VALUES (6, 'BacklogTask-1', 'To fix Feature 1', 'task', 'icebox', 'low', null, n
     (15, 'BacklogTask-10', 'To fix Feature 10', 'task', 'icebox', 'normal', null, null, 2, null, null, null, null),
     (16, 'BacklogTask-11', 'To fix Feature 11', 'task', 'icebox', 'normal', null, null, 2, null, null, null, null),
     (17, 'BacklogTask-12', 'To fix Feature 12', 'task', 'icebox', 'high', null, null, 2, null, null, null, null);
+
+-- changeset akursekova:update_user_table_add_populate_data
+
+ALTER TABLE users ADD TYPE_CODE varchar(32);
+
+UPDATE  users  SET  type_code  =  'user'  WHERE email = 'user@gmail.com';
+UPDATE  users  SET  type_code  =  'admin'  WHERE email = 'admin@gmail.com';
+UPDATE  users  SET  type_code  =  'user'  WHERE email = 'guest@gmail.com';

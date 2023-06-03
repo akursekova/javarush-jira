@@ -154,7 +154,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void createInvalid() throws Exception {
-        User invalid = new User(null, "", null, "Aa", "", "", Role.DEV, Role.ADMIN);
+        User invalid = new User(null, "", null, "Aa", "", "", "admin", Role.DEV, Role.ADMIN);
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonWithPassword(invalid, "newPass")))
@@ -205,7 +205,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = ADMIN_MAIL)
     void createDuplicateEmail() throws Exception {
         User expected = new User(null, USER_MAIL, "newPass", "duplicateFirstName", "duplicateLastName",
-                "duplicateDisplayName", Role.DEV);
+                "duplicateDisplayName", "user", Role.DEV);
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonWithPassword(expected, "newPass")))

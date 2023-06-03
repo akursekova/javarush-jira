@@ -8,7 +8,7 @@ import com.javarush.jira.login.UserTo;
 
 public class UserTestData {
     public static final MatcherFactory.Matcher<User> USER_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(
-            User.class, "startpoint", "endpoint", "password");
+            User.class, "startpoint", "endpoint", "password", "typeCode");
 
     public static final MatcherFactory.Matcher<UserTo> TO_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(UserTo.class);
 
@@ -21,19 +21,19 @@ public class UserTestData {
     public static final String GUEST_MAIL = "guest@gmail.com";
 
     public static final User user = new User(USER_ID, USER_MAIL, "userPassword", "userFirstName", "userLastName",
-            "userDisplayName", Role.DEV);
+            "userDisplayName", "user", Role.DEV);
     public static final User admin = new User(ADMIN_ID, ADMIN_MAIL, "adminPassword", "adminFirstName", "adminLastName",
-            "adminDisplayName", Role.ADMIN, Role.DEV);
+            "adminDisplayName", "admin", Role.ADMIN, Role.DEV);
     public static final User guest = new User(GUEST_ID, GUEST_MAIL, "guestPassword", "guestFirstName", "guestLastName",
-            "guestDisplayName");
+            "guestDisplayName", "user");
 
     public static User getNew() {
-        return new User(null, "new@gmail.com", "newPassword", "newFirstName", "newLastName", "newDisplayName", Role.DEV);
+        return new User(null, "new@gmail.com", "newPassword", "newFirstName", "newLastName", "newDisplayName", "user", Role.DEV);
     }
 
     public static User getUpdated() {
         return new User(USER_ID, USER_MAIL, "updatedPassword", "updatedFirstName", "updatedLastName",
-                "updatedDisplayName", Role.DEV, Role.ADMIN);
+                "updatedDisplayName", "user", Role.DEV, Role.ADMIN);
     }
 
     public static <T> String jsonWithPassword(T user, String passw) {

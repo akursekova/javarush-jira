@@ -60,7 +60,8 @@ create table USERS
     LAST_NAME    varchar(32),
     PASSWORD     varchar(128) not null,
     ENDPOINT     timestamp,
-    STARTPOINT   timestamp
+    STARTPOINT   timestamp,
+    TYPE_CODE        varchar(32)
 );
 
 create table PROFILE
@@ -123,10 +124,10 @@ create table USER_ROLE
     constraint FK_USER_ROLE foreign key (USER_ID) references USERS (ID) on delete cascade
 );
 
-insert into users (EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, DISPLAY_NAME)
-values ('user@gmail.com', '{noop}password', 'userFirstName', 'userLastName', 'userDisplayName'),
-       ('admin@gmail.com', '{noop}admin', 'adminFirstName', 'adminLastName', 'adminDisplayName'),
-       ('guest@gmail.com', '{noop}guest', 'guestFirstName', 'guestLastName', 'guestDisplayName');
+insert into users (EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, DISPLAY_NAME, TYPE_CODE)
+values ('user@gmail.com', '{noop}password', 'userFirstName', 'userLastName', 'userDisplayName', 'user'),
+       ('admin@gmail.com', '{noop}admin', 'adminFirstName', 'adminLastName', 'adminDisplayName', 'admin'),
+       ('guest@gmail.com', '{noop}guest', 'guestFirstName', 'guestLastName', 'guestDisplayName', 'user');
 
 -- 0 DEV
 -- 1 ADMIN
