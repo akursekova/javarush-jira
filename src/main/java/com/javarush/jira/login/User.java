@@ -71,6 +71,12 @@ public class User extends TimestampEntry implements HasIdAndEmail, Serializable 
     @Column(name = "display_name", nullable = false, unique = true)
     String displayName;
 
+    @NoHtml
+    @Size(max = 32)
+    @Nullable
+    @Column(name = "type_code")
+    private String typeCode;
+
     @CollectionTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role"}, name = "uk_user_role"))
@@ -86,23 +92,24 @@ public class User extends TimestampEntry implements HasIdAndEmail, Serializable 
 
     public User(User user) {
         this(user.id, user.email, user.password, user.firstName, user.lastName, user.displayName,
-                user.startpoint, user.endpoint, user.roles);
+                user.startpoint, user.endpoint, user.roles, user.typeCode);
     }
 
     public User(Long id, String email, String password, String firstName, String lastName, String displayName,
-                Role... roles) {
+                String typeCode, Role... roles) {
         this(id, email, password, firstName, lastName, displayName,
-                LocalDateTime.now(), null, Arrays.asList(roles));
+                LocalDateTime.now(), null, Arrays.asList(roles), typeCode);
     }
 
     public User(Long id, String email, String password, String firstName, String lastName, String displayName,
-                LocalDateTime startpoint, LocalDateTime endpoint, Collection<Role> roles) {
+                LocalDateTime startpoint, LocalDateTime endpoint, Collection<Role> roles, String typeCode) {
         super(id, startpoint, endpoint);
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.displayName = displayName;
+        this.typeCode = typeCode;
         setRoles(roles);
         normalize();
     }

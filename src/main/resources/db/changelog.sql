@@ -266,3 +266,45 @@ INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, st
 INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (4, 3, 2, 2, 'admin', null, null);
 INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (5, 4, 2, 2, 'admin', null, null);
 INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (6, 5, 2, 2, 'admin', null, null);
+
+--changeset akursekova:add_tags
+
+--============ References =================
+insert into REFERENCE (CODE,TITLE,REF_TYPE)
+-- TAG
+values('qa','QA', 8),
+      ('dev','DEV', 8),
+      ('front','Front', 8),
+      ('back','Back', 8);
+
+--changeset akursekova:add_activities
+
+insert into ACTIVITY ( ID, AUTHOR_ID, TASK_ID, UPDATED, STATUS_CODE )
+values(1, 2, 4, '2023-01-10T21:34:49.690422', 'in progress'),
+      (2, 2, 4, '2023-03-31T21:34:49.690422', 'ready'),
+      (3, 2, 4, '2023-05-19T21:34:49.690422', 'done');
+
+
+--changeset akursekova:add_backlog
+
+INSERT INTO task (id, title, description, type_code, status_code, priority_code, estimate, updated, project_id, sprint_id, parent_id, startpoint, endpoint)
+VALUES (6, 'BacklogTask-1', 'To fix Feature 1', 'task', 'icebox', 'low', null, null, 2, null, null, null, null),
+    (7, 'BacklogTask-2', 'To fix Feature 2', 'task', 'icebox', 'normal', null, null, 2, null, null, null, null),
+    (8, 'BacklogTask-3', 'To fix Feature 3', 'task', 'icebox', 'high', null, null, 2, null, null, null, null),
+    (9, 'BacklogTask-4', 'To fix Feature 4', 'task', 'icebox', 'low', null, null, 2, null, null, null, null),
+    (10, 'BacklogTask-5', 'To fix Feature 5', 'task', 'icebox', 'normal', null, null, 2, null, null, null, null),
+    (11, 'BacklogTask-6', 'To fix Feature 6', 'task', 'icebox', 'high', null, null, 2, null, null, null, null),
+    (12, 'BacklogTask-7', 'To fix Feature 7', 'task', 'icebox', 'low', null, null, 2, null, null, null, null),
+    (13, 'BacklogTask-8', 'To fix Feature 8', 'task', 'icebox', 'normal', null, null, 2, null, null, null, null),
+    (14, 'BacklogTask-9', 'To fix Feature 9', 'task', 'icebox', 'low', null, null, 2, null, null, null, null),
+    (15, 'BacklogTask-10', 'To fix Feature 10', 'task', 'icebox', 'normal', null, null, 2, null, null, null, null),
+    (16, 'BacklogTask-11', 'To fix Feature 11', 'task', 'icebox', 'normal', null, null, 2, null, null, null, null),
+    (17, 'BacklogTask-12', 'To fix Feature 12', 'task', 'icebox', 'high', null, null, 2, null, null, null, null);
+
+-- changeset akursekova:update_user_table_add_populate_data
+
+ALTER TABLE users ADD TYPE_CODE varchar(32);
+
+UPDATE  users  SET  type_code  =  'user'  WHERE email = 'user@gmail.com';
+UPDATE  users  SET  type_code  =  'admin'  WHERE email = 'admin@gmail.com';
+UPDATE  users  SET  type_code  =  'user'  WHERE email = 'guest@gmail.com';

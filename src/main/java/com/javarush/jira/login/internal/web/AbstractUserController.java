@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 
 import java.util.List;
 
-import static com.javarush.jira.common.util.validation.ValidationUtil.assureIdConsistent;
-import static com.javarush.jira.common.util.validation.ValidationUtil.checkNew;
+import static com.javarush.jira.common.util.validation.ValidationUtil.*;
 import static com.javarush.jira.login.internal.config.SecurityConfig.PASSWORD_ENCODER;
 
 public abstract class AbstractUserController {
@@ -66,6 +65,7 @@ public abstract class AbstractUserController {
     public void update(User user, long id) {
         log.info("update {} with id={}", user, id);
         assureIdConsistent(user, id);
+        checkUserTypeCodeExist(user.getTypeCode());
         User dbUser = repository.getExisted(id);
         repository.prepareAndUpdate(user, dbUser.getPassword());
     }

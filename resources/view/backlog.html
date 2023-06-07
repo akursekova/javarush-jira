@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:spring="http://www.w3.org/1999/XSL/Transform" lang="ru">
-<!--/*@thymesVar id="authUser" type="com.javarush.jira.login.AuthUser"*/-->
-<!--/*@thymesVar id="taskMap" type="java.util.Map<com.javarush.jira.bugtracking.to.SprintTo, java.util.List<com.javarush.jira.bugtracking.to.TaskTo>>"*/-->
+<!--/*@thymesVar id="backlogPage" type="org.springframework.data.domain.Page<com.javarush.jira.bugtracking.to.TaskTo>"*/-->
+<!--/*@thymesVar id="pageNumbers" type="java.util.List<java.lang.Integer>"*/-->
 
 <th:block th:replace="~{layout/main::page(title='JiraRush: mini bugtracking system',appMain=~{::appMain})}">
     <appMain>
-        <h1 data-th-text="#{label.title}"></h1>
         <div class="container text-center">
-            <div class="row " th:each="entry: ${taskMap}">
+            <div class="row ">
                 <div class="card">
-                    <div class="card-body" th:with="sprint=${entry.key}, tasks=${entry.value}">
-                        <h5 class="card-title" data-th-text="|#{label.sprint}: ${sprint.title}|"></h5>
-                        <h6 class="card-subtitle mb-2 text-muted" style="text-align: left; "
-                            data-th-text="|#{label.status}: ${sprint.statusCode}|"></h6>
-                        <h6 class="card-subtitle mb-2 text-muted" style="text-align: left; "
-                            data-th-text="|#{label.dueDate}: ${#temporals.format(sprint.endpoint,'dd.MM.yyyy')}|"></h6>
+                    <div class="card-body" th:with="tasks=${backlogPage.content}">
+                        <h5 class="card-title" data-th-text="#{label.backlog}"></h5>
                         <div class="row">
                             <div class="col" th:each="task: ${tasks}">
                                 <div class="card">
@@ -28,6 +23,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <nav aria-label="..." class="mt-3">
+                                <ul th:if="${backlogPage.totalPages > 0}"
+                                    class="pagination pg-blue justify-content-center">
+                                    <li th:each="pageNumber : ${pageNumbers}"
+                                        th:class="${pageNumber==backlogPage.number + 1} ? 'page-item active' : 'page-item'">
+                                        <a class="page-link"
+                                           th:href="@{/ui/backlog(size=${backlogPage.size}, page=${pageNumber})}"
+                                           th:text="${pageNumber}"
+                                           tabindex="-1"></a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>

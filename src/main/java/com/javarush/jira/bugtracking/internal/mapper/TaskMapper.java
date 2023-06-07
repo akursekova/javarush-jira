@@ -5,6 +5,7 @@ import com.javarush.jira.bugtracking.to.TaskTo;
 import com.javarush.jira.common.BaseMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,7 +13,8 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {SprintMapper.class, ProjectMapper.class})
 public interface TaskMapper extends BaseMapper<Task, TaskTo> {
 
-    @Mapping(target = "enabled", expression = "java(task.isEnabled())")
+    @Mappings({@Mapping(target = "enabled", expression = "java(task.isEnabled())"),
+            @Mapping(target = "activities", ignore = true)})
     @Override
     TaskTo toTo(Task task);
 

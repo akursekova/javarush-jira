@@ -19,6 +19,7 @@ import java.net.URI;
 import java.util.List;
 
 import static com.javarush.jira.common.util.validation.ValidationUtil.checkNew;
+import static com.javarush.jira.common.util.validation.ValidationUtil.checkUserTypeCodeExist;
 
 @Slf4j
 @Validated
@@ -48,6 +49,7 @@ public class AdminUserController extends AbstractUserController {
     public ResponseEntity<User> createWithLocation(@Validated(View.OnCreate.class) @RequestBody User user) {
         log.info("create {}", user);
         checkNew(user);
+        checkUserTypeCodeExist(user.getTypeCode());
         User created = super.create(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
