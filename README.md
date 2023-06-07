@@ -21,6 +21,38 @@
 ## Testing
 - https://habr.com/ru/articles/259055/
 
+## Run and Build the code using Docker
+
+- Install [Docker](https://docs.docker.com/install)
+- Open the link https://github.com/akursekova/javarush-jira/tree/dev and click Donwnload ZIP
+- The name of downloaded folder will be javarush-jira-dev, since it was downloaded from the dev branch
+- Add .env file with sensitive info (it was not committed due to security reasons)
+- run following commands
+ ```
+ cd trading-platform-dev 
+ mvn clean package -DskipTests
+ docker-compose up
+ ```
+![img_2.png](img_2.png)
+
+![img_4.png](img_4.png)
+
+Application will be available at http://localhost:8080/:
+![img_3.png](img_3.png)
+
+Run tests: 
+ ```
+mvn clean test -DHOST_URL=http://localhost:8080 
+-DAPP_MAIL=jira4jr@gmail.com 
+-DDB_URL=jdbc:postgresql://localhost:5432/jira 
+-DDB_USERNAME=jira 
+-DDB_PASSWORD=JiraRush 
+-DDB_DRIVER=org.postgresql.Driver 
+-DMAIL_USERNAME=jira4jr@gmail.com 
+-DMAIL_PASSWORD=zdfzsrqvgimldzyj
+ ```
+![img_5.png](img_5.png)
+
 ## List of completed tasks:
 #### 1. Code related to social networks(vk, yandex) was deleted:
 - login.html
@@ -136,4 +168,4 @@ It gives ability to localize html pages, by adding /?locale=es or any other loca
 #### 11. Add docker-compose.yaml:
 - docker-compose.yaml added to the root of the project  
 
-![img_2.png](img_2.png)
+
