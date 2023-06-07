@@ -135,16 +135,5 @@ It gives ability to localize html pages, by adding /?locale=es or any other loca
 
 #### 11. Add docker-compose.yaml:
 - docker-compose.yaml added to the root of the project  
-I couldn't run application using docker compose. I am getting the error:
-```
-06-06 20:16:07.210 [    main] WARN | o.springframework.context.support.AbstractApplicationContext.refresh:592 Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
-06-06 20:16:07.236 [    main] ERROR| org.springframework.boot.SpringApplication.reportFailure:820 Application run failed
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
-```
-Even though ports, hostname, username, password are correct I cannot make it works.
 
-Docker containers looks like this:
-![img.png](img.png)
-
-Also I can see that server_jira logs go before db_jira even though server_jira depends on db_jira: 
-![img_1.png](img_1.png)
+![img_2.png](img_2.png)
